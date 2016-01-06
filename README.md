@@ -5,6 +5,8 @@ What you need to type is simple
 
 **./u-proxy.py**
 
+**don't forgot chmod +x u-proxy.py to make u-proxy.py runable**
+
 or
 
 **./u-proxy.py [port] [accept client ip address]**
