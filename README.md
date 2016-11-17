@@ -22,3 +22,5 @@ and you run u-proxy on somehost with
 **It's safe and powerfull!**
 
 Any pull request is welcome.
+
+Love My Software: https://www.paypal.me/medlab :)
