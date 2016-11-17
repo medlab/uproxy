@@ -1,5 +1,10 @@
 # u-proxy
-The only perfect IPV6/IPV4 supported simple python proxy application.
+
+The only perfect python based proxy server with both IPV6/IPV4 supported for you!
+
+You can start a server and setup proxy on a browser even on your mobile device, then you may found some bad software is sending you private data out, if it's http based, you may even see all the detail on your running Python console!
+
+When you debug your web related software or try to monitor your device network activity, you will found a simple and clear http proxy server is your Swiss Army Knife, the best friend of engineer and hacks! That's why I develop u-proxy which for detected bad software on my phone!
 
 What you need to type is simple
 
