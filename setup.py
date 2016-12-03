@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
-  name = 'u-proxy',
-  packages = ['u-proxy'],
+  name = 'uproxy',
+  packages = ['uproxy'],
   version = '0.3.99',
   description = 'A both ipv4/ipv6 suppported http proxy server',
   author = 'Cong Zhang',
