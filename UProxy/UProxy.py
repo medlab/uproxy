@@ -21,6 +21,7 @@ Adjust by Cong Zhang:
 rewrite some socket related part to make ipv4/ipv6 auto adjust
 force to work with only python3
 """
+
 __version__ = "0.3.99"
 
 
@@ -140,22 +141,26 @@ class ForkHTTPServer(socketserver.ThreadingMixIn,
     pass
 
 
-if __name__ == '__main__':
-    from sys import argv
+def main():
+    import sys
 
-    if argv[1:] and argv[1] in ('-h', '--help'):
-        print(argv[0], "[port [allowed_client_name ...]]")
+    if sys.argv[1:] and sys.argv[1] in ('-h', '--help'):
+        print(sys.argv[0], "[port [allowed_client_name ...]]")
     else:
-        if argv[2:]:
+        if sys.argv[2:]:
             allowed = []
-            for name in argv[2:]:
+            for name in sys.argv[2:]:
                 client = socket.gethostbyname(name)
                 allowed.append(client)
                 print("Accept: %s (%s)" % (client, name))
             ProxyHandler.allowed_clients = allowed
-            del argv[2:]
+            del sys.argv[2:]
             http.server.test(ProxyHandler, ForkHTTPServer)
         else:
             print("Any clients will be served...")
             # BaseHTTPServer.test(ProxyHandler, ThreadingHTTPServer)
             http.server.test(ProxyHandler, ForkHTTPServer)
+
+
+if __name__ == '__main__':
+    main()

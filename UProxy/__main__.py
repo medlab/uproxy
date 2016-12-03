@@ -1,0 +1,2 @@
+import UProxy
+UProxy.main()
