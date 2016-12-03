@@ -1,6 +1,7 @@
 language: python
 
 script:
+  - true
 
 deploy:
   provider: pypi
