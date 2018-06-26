@@ -1,12 +1,6 @@
-#!/bin/sh -c 'env python3'
+#!/bin/bash -c 'env python3'
 
-import http.server
-import select
-import socket
-import socketserver
-import urllib.parse
-
-__doc__ = """Tiny HTTP Proxy.
+"""Tiny HTTP Proxy.
 
 This module implements GET, HEAD, POST, PUT and DELETE methods
 on BaseHTTPServer, and behaves as an HTTP proxy.  The CONNECT
@@ -22,14 +16,19 @@ rewrite some socket related part to make ipv4/ipv6 auto adjust
 force to work with only python3
 """
 
-__version__ = "0.3.99"
+import argparse
+import select
+import socket
+import socketserver
+import http.server
+import urllib.parse
 
 
 class ProxyHandler(http.server.BaseHTTPRequestHandler):
     __base = http.server.BaseHTTPRequestHandler
     __base_handle = __base.handle
 
-    server_version = "TinyHTTPProxy/" + __version__
+    server_version = "TinyHTTPProxy Alpha"
     rbufsize = 0  # self.rfile Be unbuffered
 
     def handle(self):
@@ -142,24 +141,31 @@ class ForkHTTPServer(socketserver.ThreadingMixIn,
 
 
 def main():
-    import sys
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--bind', '-b', default='127.0.0.1', metavar='ADDRESS',
+                        help='Specify alternate bind address '
+                             '[default: all interfaces]')
+    parser.add_argument('port', action='store',
+                        default=8000, type=int,
+                        nargs='?',
+                        help='Specify alternate port [default: 8000]')
+    parser.add_argument('--allowed-ip', default=None,
+                        help='Filter which client you want serve for!')
+    args = parser.parse_args()
 
-    if sys.argv[1:] and sys.argv[1] in ('-h', '--help'):
-        print(sys.argv[0], "[port [allowed_client_name ...]]")
+    if args.allowed_ip is not None:
+        allowed = []
+
+        client = socket.gethostbyname(args.allowed_ip)
+        allowed.append(client)
+        print("Accept: %s (%s)" % (client, args.allowed_ip))
+
+        ProxyHandler.allowed_clients = allowed
     else:
-        if sys.argv[2:]:
-            allowed = []
-            for name in sys.argv[2:]:
-                client = socket.gethostbyname(name)
-                allowed.append(client)
-                print("Accept: %s (%s)" % (client, name))
-            ProxyHandler.allowed_clients = allowed
-            del sys.argv[2:]
-            http.server.test(ProxyHandler, ForkHTTPServer)
-        else:
-            print("Any clients will be served...")
-            # BaseHTTPServer.test(ProxyHandler, ThreadingHTTPServer)
-            http.server.test(ProxyHandler, ForkHTTPServer)
+        print("Any clients will be served...")
+
+    http.server.test(ProxyHandler, ForkHTTPServer, port=args.port, bind=args.bind)
+    pass
 
 
 if __name__ == '__main__':
