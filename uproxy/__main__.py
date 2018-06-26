@@ -1,2 +1,2 @@
-from uproxy.UProxy import main
+from .UProxy import main
 main()

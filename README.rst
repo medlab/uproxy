@@ -51,3 +51,26 @@ Release Workflow
 ref:
 https://blog.jetbrains.com/pycharm/2017/05/how-to-publish-your-package-on-pypi/
 https://packaging.python.org/guides/migrating-to-pypi-org/
+
+Why I love uproxy more even it's a little slow than others
+===========================================================================
+1. DNS configure is not always allowed, but proxy is most of time!
+2. Https is auto supported because HTTP CONNECT is supported
+3. Safe from DNS cache poisoning
+4. Easy to deploy on gateway to just serve for lan client
+
+Fast Config a server to server just for lan
+===========================================================================
+1. pip install uproxy?
+2. Create a start script in some place(like ~/bin/start_uproxy), like
+
+.. code-block:: bash
+
+  #!/bin/bash
+  python -m uproxy -b [lan address like 192.168.1.1]
+
+3. Auto run by cron after reboot (create job by crontab -e),
+
+  @reboot /sbin/start-stop-daemon -S -x ~/bin/start_uproxy -b
+
+3. Lan client config http proxy by [lan address like 192.168.1.1]:[port num like 8000]

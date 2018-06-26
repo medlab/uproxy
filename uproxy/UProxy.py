@@ -23,6 +23,9 @@ import socketserver
 import http.server
 import urllib.parse
 
+def be_sure_to_bytes(str_or_bytes):
+    return str_or_bytes if str is bytes else str_or_bytes.encode('utf-8')
+    pass
 
 class ProxyHandler(http.server.BaseHTTPRequestHandler):
     __base = http.server.BaseHTTPRequestHandler
@@ -63,10 +66,10 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
             soc = self._connect_to(self.path);
             if not soc is None:
                 self.log_request(200)
-                self.wfile.write(self.protocol_version +
-                                 " 200 Connection established\r\n")
-                self.wfile.write("Proxy-agent: %s\r\n" % self.version_string())
-                self.wfile.write("\r\n")
+                self.wfile.write(be_sure_to_bytes(self.protocol_version +
+                                 " 200 Connection established\r\n"))
+                self.wfile.write(be_sure_to_bytes("Proxy-agent: %s\r\n" % self.version_string()))
+                self.wfile.write(b"\r\n")
                 self._read_write(soc, 300)
         finally:
             print("\t" "bye")
@@ -86,15 +89,15 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
             soc = self._connect_to(netloc)
             if not soc is None:
                 self.log_request()
-                soc.send("%s %s %s\r\n" % (
+                soc.send(be_sure_to_bytes("%s %s %s\r\n" % (
                     self.command,
                     urllib.parse.urlunparse(('', '', path, params, query, '')),
-                    self.request_version))
+                    self.request_version)))
                 self.headers['Connection'] = 'close'
                 del self.headers['Proxy-Connection']
                 for key_val in list(self.headers.items()):
-                    soc.send("%s: %s\r\n" % key_val)
-                soc.send("\r\n")
+                    soc.send(be_sure_to_bytes("%s: %s\r\n" % key_val))
+                soc.send(b"\r\n")
                 self._read_write(soc)
         finally:
             print("\t" "bye")
