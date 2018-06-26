@@ -37,8 +37,17 @@ and you run UProxy on somehost with
 
 *if you install by pip3 install u-proxy *
 
-*You need run by mode like python3 -m uproxy.UProxy
+*You need run by module like python3 -m uproxy.UProxy
 
 Any pull request is welcome.
 
 Love My Software: https://www.paypal.me/medlab :)
+
+Release Workflow
+=========================
+1. python setup.py sdist
+2. python -m twine upload dist/*
+
+ref:
+https://blog.jetbrains.com/pycharm/2017/05/how-to-publish-your-package-on-pypi/
+https://packaging.python.org/guides/migrating-to-pypi-org/
