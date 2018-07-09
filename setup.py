@@ -2,8 +2,8 @@ from distutils.core import setup
 setup(
   name = 'uproxy',
   packages = ['uproxy'],
-  version = '0.3.99.4',
-  description = 'A both ipv4/ipv6 suppported http proxy server',
+  version = '0.3.99.9',
+  description = 'An ipv4/ipv6 suppported http proxy server',
   long_description = open('readme.rst').read(), # need to close?
   author = 'Cong Zhang',
   author_email = 'congzhangzh@gmail.com',
