@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'uproxy',
   packages = ['uproxy'],
-  version = '0.3.99.10',
+  version = '0.3.99.12',
   description = 'An ipv4/ipv6 suppported http proxy server',
   long_description = open('README.rst').read(), # need to close?
   author = 'Cong Zhang',
