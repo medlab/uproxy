@@ -4,7 +4,7 @@ setup(
   packages = ['uproxy'],
   version = '0.3.99.10',
   description = 'An ipv4/ipv6 suppported http proxy server',
-  long_description = open('readme.rst').read(), # need to close?
+  long_description = open('README.rst').read(), # need to close?
   author = 'Cong Zhang',
   author_email = 'congzhangzh@gmail.com',
   url = 'https://github.com/medlab/uproxy',
