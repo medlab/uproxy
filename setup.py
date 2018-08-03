@@ -1,8 +1,8 @@
-from distutils.core import setup
+from setuptools import setup
 setup(
   name = 'uproxy',
   packages = ['uproxy'],
-  version = '0.3.99.12',
+  version = '0.3.99.13',
   description = 'An ipv4/ipv6 suppported http proxy server',
   long_description = open('README.rst').read(), # need to close?
   author = 'Cong Zhang',
